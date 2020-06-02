@@ -13,7 +13,8 @@ import { ActionTypes } from "core/constants/actionTypes";
  */
 const initialState = {
   loadNotesStatus: "idle",
-  notes: [],
+  addNoteStatus: "idle",
+  list: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -25,14 +26,27 @@ export default (state = initialState, { type, payload }) => {
     case ActionTypes.GET_NOTES_SUCCESS:
       return immutable(state, {
         loadNotesStatus: { $set: "loaded" },
-        notes: { $set: payload.notes },
+        list: { $set: payload.notes },
       });
 
     case ActionTypes.GET_NOTES_FAILURE:
       return immutable(state, {
         loadNotesStatus: { $set: "error" },
       });
+    case ActionTypes.ADD_NOTE_REQUEST:
+      return immutable(state, {
+        addNoteStatus: { $set: "running" },
+      });
+    case ActionTypes.ADD_NOTE_SUCCESS:
+      return immutable(state, {
+        addNoteStatus: { $set: "loaded" },
+        list: { $push: [payload.note] },
+      });
 
+    case ActionTypes.ADD_NOTE_FAILURE:
+      return immutable(state, {
+        addNoteStatus: { $set: "error" },
+      });
     default:
       return state;
   }

@@ -15,12 +15,52 @@ import { ActionTypes } from "core/constants/actionTypes";
  */
 export function* getNotesRequest({ payload }) {
   try {
-    console.log("get notes request", payload);
+    setTimeout(() => {
+      console.log("get notes", payload.searchKeyword, payload.tags);
+    }, 1000);
+    yield put({
+      type: ActionTypes.GET_NOTES_SUCCESS,
+      payload: {
+        notes: [],
+      },
+    });
   } catch (err) {
-    console.log(err);
+    yield put({
+      type: ActionTypes.GET_NOTES_FAILURE,
+    });
   }
 }
 
+/**
+ * triggers in response to ADD_NOTE_REQUEST
+ * and in case of success puts ADD_NOTE_SUCCESS
+ * and in case of failure puts ADD_NOTE_FAILURE
+ * get list of notes
+ */
+export function* addNote({ payload }) {
+  try {
+    setTimeout(() => {
+      console.log("added note", payload.title, payload.description);
+    }, 1000);
+    yield put({
+      type: ActionTypes.ADD_NOTE_SUCCESS,
+      payload: {
+        note: {
+          title: payload.title,
+          description: payload.description,
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    yield put({
+      type: ActionTypes.ADD_NOTE_FAILURE,
+    });
+  }
+}
 export default function* root() {
-  yield all([takeLatest(ActionTypes.GET_NOTES_REQUEST, getNotesRequest)]);
+  yield all([
+    takeLatest(ActionTypes.GET_NOTES_REQUEST, getNotesRequest),
+    takeLatest(ActionTypes.ADD_NOTE_REQUEST, addNote),
+  ]);
 }
