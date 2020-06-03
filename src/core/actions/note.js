@@ -9,3 +9,8 @@ export const getNotes = (searchKeyword, tags) => ({
   type: ActionTypes.GET_NOTES_REQUEST,
   payload: { searchKeyword, tags },
 });
+
+export const editNote = (title, description, id) => ({
+  type: ActionTypes.EDIT_NOTE_REQUEST,
+  payload: { title, description, id },
+});

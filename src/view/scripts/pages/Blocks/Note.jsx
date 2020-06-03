@@ -4,17 +4,22 @@ import Card from "antd/lib/card";
 
 /**
  * Note Card
- * @param {string} title
- * @param {string} description
+ * @param {object} note
+ * @param {func} onNoteClick
  */
-const Note = ({ title, description }) => (
-  <Card title={title} style={{ marginTop: "1em" }}>
-    <p>{description}</p>
+const Note = ({ note, onNoteClick }) => (
+  <Card
+    title={note.title}
+    style={{ marginTop: "1em" }}
+    hoverable
+    onClick={() => onNoteClick(note.title, note.description, note.id)}
+  >
+    <p>{note.description}</p>
   </Card>
 );
 
 Note.proptype = {
-  title: PropTypes.string,
-  description: PropTypes.string,
+  note: PropTypes.object,
+  onNoteClick: PropTypes.func,
 };
 export default Note;

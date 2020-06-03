@@ -3,7 +3,8 @@
  * @module Sagas/MediaCategory
  * @desc media categories saga
  */
-import { all, call, put, takeLatest } from "redux-saga/effects";
+import { all, put, takeLatest } from "redux-saga/effects";
+import { v4 as uuid } from "uuid";
 
 import { ActionTypes } from "core/constants/actionTypes";
 
@@ -46,6 +47,7 @@ export function* addNote({ payload }) {
       type: ActionTypes.ADD_NOTE_SUCCESS,
       payload: {
         note: {
+          id: uuid(),
           title: payload.title,
           description: payload.description,
         },
@@ -58,9 +60,40 @@ export function* addNote({ payload }) {
     });
   }
 }
+
+/**
+ * triggers in response to EDIT_NOTE_REQUEST
+ * and in case of success puts EDIT_NOTE_SUCCESS
+ * and in case of failure puts EDIT_NOTE_FAILURE
+ * get list of notes
+ */
+export function* editNote({ payload }) {
+  try {
+    setTimeout(() => {
+      console.log("edit note", payload.title, payload.description, payload.id);
+    }, 1000);
+    yield put({
+      type: ActionTypes.EDIT_NOTE_SUCCESS,
+      payload: {
+        note: {
+          id: payload.id,
+          title: payload.title,
+          description: payload.description,
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    yield put({
+      type: ActionTypes.ADD_NOTE_FAILURE,
+    });
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(ActionTypes.GET_NOTES_REQUEST, getNotesRequest),
     takeLatest(ActionTypes.ADD_NOTE_REQUEST, addNote),
+    takeLatest(ActionTypes.EDIT_NOTE_REQUEST, editNote),
   ]);
 }
