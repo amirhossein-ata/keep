@@ -16,13 +16,38 @@ import { ActionTypes } from "core/constants/actionTypes";
  */
 export function* getNotesRequest({ payload }) {
   try {
-    setTimeout(() => {
-      console.log("get notes", payload.searchKeyword, payload.tags);
-    }, 1000);
+    setTimeout(() => {}, 1000);
     yield put({
       type: ActionTypes.GET_NOTES_SUCCESS,
       payload: {
-        notes: [],
+        notes: [
+          {
+            id: 1,
+            title: "note #1",
+            description: "note 1 description",
+          },
+          {
+            id: 2,
+            title: "note #2",
+            description: "note 2 description",
+          },
+          {
+            id: 3,
+            title: "note #3",
+            description: "note 3 #description",
+          },
+          {
+            id: 4,
+            title: "note #11",
+            description: "note 11 description",
+          },
+          {
+            id: 5,
+            title: "note #33",
+            description: "note 1 #description",
+          },
+        ],
+        hashtags: ["#1", "#2", "#3", "#11", "#33", "#description"],
       },
     });
   } catch (err) {
@@ -40,9 +65,7 @@ export function* getNotesRequest({ payload }) {
  */
 export function* addNote({ payload }) {
   try {
-    setTimeout(() => {
-      console.log("added note", payload.title, payload.description);
-    }, 1000);
+    setTimeout(() => {}, 1000);
     yield put({
       type: ActionTypes.ADD_NOTE_SUCCESS,
       payload: {
@@ -50,6 +73,7 @@ export function* addNote({ payload }) {
           id: uuid(),
           title: payload.title,
           description: payload.description,
+          hashtags: payload.hashtags,
         },
       },
     });
@@ -69,9 +93,7 @@ export function* addNote({ payload }) {
  */
 export function* editNote({ payload }) {
   try {
-    setTimeout(() => {
-      console.log("edit note", payload.title, payload.description, payload.id);
-    }, 1000);
+    setTimeout(() => {}, 1000);
     yield put({
       type: ActionTypes.EDIT_NOTE_SUCCESS,
       payload: {
@@ -79,6 +101,7 @@ export function* editNote({ payload }) {
           id: payload.id,
           title: payload.title,
           description: payload.description,
+          hashtags: payload.hashtags,
         },
       },
     });
@@ -98,9 +121,7 @@ export function* editNote({ payload }) {
  */
 export function* deleteNote({ payload }) {
   try {
-    setTimeout(() => {
-      console.log("delete note", payload.id);
-    }, 1000);
+    setTimeout(() => {}, 1000);
     yield put({
       type: ActionTypes.DELETE_NOTE_SUCCESS,
       payload: {

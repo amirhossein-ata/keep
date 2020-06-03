@@ -16,3 +16,7 @@ export function useOutsideChecker(ref, outsideClickCallback) {
     };
   }, [ref, outsideClickCallback]);
 }
+
+export function getHashtags(text) {
+  return text.split(" ").filter((i) => i.startsWith("#"));
+}

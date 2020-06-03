@@ -17,10 +17,20 @@ const Note = ({ note, onNoteClick, onDelete }) => (
     ]}
     className="note"
   >
-    <div onClick={() => onNoteClick(note.title, note.description, note.id)}>
-      <h3>{note.title}</h3>
-      <p>{note.description}</p>
-    </div>
+    <Card.Grid
+      style={{ width: "100%" }}
+      hoverable={false}
+      onClick={() => onNoteClick(note.title, note.description, note.id)}
+    >
+      {note.title === "" && note.title === "" ? (
+        <h3>Empty note</h3>
+      ) : (
+        <React.Fragment>
+          <h3>{note.title}</h3>
+          <p>{note.description}</p>
+        </React.Fragment>
+      )}
+    </Card.Grid>
   </Card>
 );
 

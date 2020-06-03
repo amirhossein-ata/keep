@@ -5,7 +5,6 @@
  */
 import immutable from "immutability-helper";
 import { ActionTypes } from "core/constants/actionTypes";
-
 /**
  * campaign initial state
  * @property {string} statusCmpList -load status of campagins list and customers list
@@ -17,6 +16,9 @@ const initialState = {
   editNoteStatus: "idle",
   deleteNoteStatus: "idle",
   list: [],
+  selectedHashtags: [],
+  hashtagsList: [],
+  searchKeyword: "",
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -29,6 +31,7 @@ export default (state = initialState, { type, payload }) => {
       return immutable(state, {
         loadNotesStatus: { $set: "loaded" },
         list: { $set: payload.notes },
+        hashtagsList: { $set: payload.hashtags },
       });
 
     case ActionTypes.GET_NOTES_FAILURE:
@@ -43,6 +46,7 @@ export default (state = initialState, { type, payload }) => {
       return immutable(state, {
         addNoteStatus: { $set: "loaded" },
         list: { $push: [payload.note] },
+        hashtagsList: { $push: payload.note.hashtags },
       });
 
     case ActionTypes.ADD_NOTE_FAILURE:
@@ -55,7 +59,6 @@ export default (state = initialState, { type, payload }) => {
       });
     case ActionTypes.EDIT_NOTE_SUCCESS:
       const editedList = state.list.map((note) => {
-        console.log(note, payload.note);
         if (note.id === payload.note.id) {
           return {
             id: note.id,
@@ -68,6 +71,7 @@ export default (state = initialState, { type, payload }) => {
       return immutable(state, {
         editNoteStatus: { $set: "loaded" },
         list: { $set: editedList },
+        hashtagsList: { $push: payload.note.hashtags },
       });
 
     case ActionTypes.EDIT_NOTE_FAILURE:
@@ -78,6 +82,7 @@ export default (state = initialState, { type, payload }) => {
       return immutable(state, {
         deleteNoteStatus: { $set: "running" },
       });
+
     case ActionTypes.DELETE_NOTE_SUCCESS:
       const filteredList = state.list.filter(
         (note) => note.id !== payload.note.id
@@ -86,9 +91,20 @@ export default (state = initialState, { type, payload }) => {
         deleteNoteStatus: { $set: "loaded" },
         list: { $set: filteredList },
       });
+
     case ActionTypes.DELETE_NOTE_FAILURE:
       return immutable(state, {
         deleteNoteStatus: { $set: "error" },
+      });
+
+    case ActionTypes.FILTER_BY_SEARCHKEYWORD:
+      return immutable(state, {
+        searchKeyword: { $set: payload.searchKeyword },
+      });
+
+    case ActionTypes.FILTER_BY_HASHTAGS:
+      return immutable(state, {
+        selectedHashtags: { $set: [...new Set([...payload.hashtags])] },
       });
     default:
       return state;
