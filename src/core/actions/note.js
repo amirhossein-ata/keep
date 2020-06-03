@@ -14,3 +14,8 @@ export const editNote = (title, description, id) => ({
   type: ActionTypes.EDIT_NOTE_REQUEST,
   payload: { title, description, id },
 });
+
+export const deleteNote = (id) => ({
+  type: ActionTypes.DELETE_NOTE_REQUEST,
+  payload: { id },
+});

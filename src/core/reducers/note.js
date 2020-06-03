@@ -15,6 +15,7 @@ const initialState = {
   loadNotesStatus: "idle",
   addNoteStatus: "idle",
   editNoteStatus: "idle",
+  deleteNoteStatus: "idle",
   list: [],
 };
 
@@ -53,10 +54,9 @@ export default (state = initialState, { type, payload }) => {
         editNoteStatus: { $set: "running" },
       });
     case ActionTypes.EDIT_NOTE_SUCCESS:
-      const newList = state.list.map((note) => {
+      const editedList = state.list.map((note) => {
         console.log(note, payload.note);
         if (note.id === payload.note.id) {
-          console.log(payload.note);
           return {
             id: note.id,
             title: payload.note.title,
@@ -65,15 +65,30 @@ export default (state = initialState, { type, payload }) => {
         }
         return note;
       });
-      console.log(newList);
       return immutable(state, {
         editNoteStatus: { $set: "loaded" },
-        list: { $set: newList },
+        list: { $set: editedList },
       });
 
     case ActionTypes.EDIT_NOTE_FAILURE:
       return immutable(state, {
         editNoteStatus: { $set: "error" },
+      });
+    case ActionTypes.DELETE_NOTE_REQUEST:
+      return immutable(state, {
+        deleteNoteStatus: { $set: "running" },
+      });
+    case ActionTypes.DELETE_NOTE_SUCCESS:
+      const filteredList = state.list.filter(
+        (note) => note.id !== payload.note.id
+      );
+      return immutable(state, {
+        deleteNoteStatus: { $set: "loaded" },
+        list: { $set: filteredList },
+      });
+    case ActionTypes.DELETE_NOTE_FAILURE:
+      return immutable(state, {
+        deleteNoteStatus: { $set: "error" },
       });
     default:
       return state;

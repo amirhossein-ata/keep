@@ -1,20 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Card from "antd/lib/card";
+import { DeleteOutlined } from "@ant-design/icons";
 
 /**
  * Note Card
  * @param {object} note
  * @param {func} onNoteClick
  */
-const Note = ({ note, onNoteClick }) => (
+const Note = ({ note, onNoteClick, onDelete }) => (
   <Card
-    title={note.title}
     style={{ marginTop: "1em" }}
     hoverable
-    onClick={() => onNoteClick(note.title, note.description, note.id)}
+    actions={[
+      <DeleteOutlined key="ellipsis" onClick={() => onDelete(note.id)} />,
+    ]}
+    className="note"
   >
-    <p>{note.description}</p>
+    <div onClick={() => onNoteClick(note.title, note.description, note.id)}>
+      <h3>{note.title}</h3>
+      <p>{note.description}</p>
+    </div>
   </Card>
 );
 

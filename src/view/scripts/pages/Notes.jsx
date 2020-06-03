@@ -12,7 +12,7 @@ import NoteForm from "./Blocks/NoteForm";
 import EditNote from "./Blocks/EditNote";
 
 //actions
-import { addNote, getNotes, editNote } from "core/actions/note";
+import { addNote, getNotes, editNote, deleteNote } from "core/actions/note";
 
 //helpers
 import { useOutsideChecker } from "core/modules/helpers";
@@ -61,6 +61,10 @@ const Notes = ({ notes, dispatch }) => {
     setId("");
   };
 
+  const handleDeleteNote = (id) => {
+    dispatch(deleteNote(id));
+  };
+
   // setup refrences to check if outside of new note form is clicked
   const newNoteRef = useRef(null);
   useOutsideChecker(newNoteRef, handleCloseNewNoteForm);
@@ -92,7 +96,12 @@ const Notes = ({ notes, dispatch }) => {
           {loadNotesStatus === "loaded" && (
             <React.Fragment>
               {list.map((note, index) => (
-                <Note key={index} note={note} onNoteClick={handleNoteClick} />
+                <Note
+                  key={index}
+                  note={note}
+                  onNoteClick={handleNoteClick}
+                  onDelete={handleDeleteNote}
+                />
               ))}
             </React.Fragment>
           )}
