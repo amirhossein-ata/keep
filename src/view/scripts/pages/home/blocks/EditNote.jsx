@@ -1,42 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-
+//helpers
+import { getHashtags } from "core/modules/helpers";
+//actions
+import { editNote } from "core/actions/note";
 //antd imports
 import Modal from "antd/lib/modal";
 
 //components
 import NoteForm from "./NoteForm";
 
-const EditNote = ({
-  title,
-  description,
-  setTitle,
-  setDescription,
-  isOpen,
-  onCancel,
-}) => (
-  <Modal
-    title=""
-    footer={null}
-    visible={isOpen}
-    onCancel={onCancel}
-    closable={false}
-  >
-    <NoteForm
-      title={title}
-      setTitle={setTitle}
-      description={description}
-      setDescription={setDescription}
-    />
-  </Modal>
-);
+const EditNote = ({ note, isOpen, dispatch }) => {
+  const [title, setTitle] = useState(note.title);
+  const [description, setDescription] = useState(note.description);
 
+  //close edit note modal
+  const handleEditNoteClose = () => {
+    const hashtags = getHashtags(`${title} ${description}`);
+    dispatch(editNote(title, description, note.id, hashtags));
+  };
+
+  return (
+    <Modal
+      title=""
+      footer={null}
+      visible={isOpen}
+      onCancel={handleEditNoteClose}
+      closable={false}
+    >
+      <NoteForm
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+      />
+    </Modal>
+  );
+};
 EditNote.proptype = {
-  title: PropTypes.string,
-  setTitle: PropTypes.func,
-  description: PropTypes.string,
-  setDescription: PropTypes.func,
+  note: PropTypes.object,
   isOpen: PropTypes.bool,
-  onCancel: PropTypes.func,
+  dispatch: PropTypes.func,
 };
 export default EditNote;

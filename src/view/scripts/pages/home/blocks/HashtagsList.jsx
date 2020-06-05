@@ -34,5 +34,8 @@ const HashtagsList = ({
 
 HashtagsList.proptype = {
   hashtags: PropTypes.array,
+  selectedHashtags: PropTypes.array,
+  onHashtagClick: PropTypes.func,
+  onDeleteHashtag: PropTypes.func,
 };
 export default HashtagsList;

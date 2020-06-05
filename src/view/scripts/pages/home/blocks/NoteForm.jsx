@@ -5,13 +5,8 @@ import PropTypes from "prop-types";
 import Form from "antd/lib/form";
 import Input from "antd/lib/input";
 
-const NoteForm = ({
-  title,
-  setTitle,
-  description,
-  setDescription,
-  checkHashtag,
-}) => {
+const NoteForm = ({ title, setTitle, description, setDescription }) => {
+  console.log(title, description);
   return (
     <Form>
       <Form.Item>
@@ -39,7 +34,6 @@ NoteForm.proptype = {
   setTitle: PropTypes.func,
   description: PropTypes.string,
   setDescription: PropTypes.func,
-  checkHashtag: PropTypes.func,
 };
 
 export default NoteForm;

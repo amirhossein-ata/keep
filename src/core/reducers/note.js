@@ -19,6 +19,8 @@ const initialState = {
   selectedHashtags: [],
   hashtagsList: [],
   searchKeyword: "",
+  note: null,
+  showEditModal: false,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -53,6 +55,11 @@ export default (state = initialState, { type, payload }) => {
       return immutable(state, {
         addNoteStatus: { $set: "error" },
       });
+    case ActionTypes.SET_SELECTED_NOTE_TO_EDIT:
+      return immutable(state, {
+        note: { $set: payload.note },
+        showEditModal: { $set: true },
+      });
     case ActionTypes.EDIT_NOTE_REQUEST:
       return immutable(state, {
         editNoteStatus: { $set: "running" },
@@ -72,6 +79,8 @@ export default (state = initialState, { type, payload }) => {
         editNoteStatus: { $set: "loaded" },
         list: { $set: editedList },
         hashtagsList: { $push: payload.note.hashtags },
+        showEditModal: { $set: false },
+        note: { $set: null },
       });
 
     case ActionTypes.EDIT_NOTE_FAILURE:

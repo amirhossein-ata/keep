@@ -20,7 +20,7 @@ const Note = ({ note, onNoteClick, onDelete }) => (
     <Card.Grid
       style={{ width: "100%" }}
       hoverable={false}
-      onClick={() => onNoteClick(note.title, note.description, note.id)}
+      onClick={() => onNoteClick(note)}
     >
       {note.title === "" && note.title === "" ? (
         <h3>Empty note</h3>
@@ -37,5 +37,6 @@ const Note = ({ note, onNoteClick, onDelete }) => (
 Note.proptype = {
   note: PropTypes.object,
   onNoteClick: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 export default Note;

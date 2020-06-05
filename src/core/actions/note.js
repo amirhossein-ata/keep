@@ -29,3 +29,8 @@ export const filterByHashtags = (hashtags) => ({
   type: ActionTypes.FILTER_BY_HASHTAGS,
   payload: { hashtags },
 });
+
+export const selectNoteToEdit = (note) => ({
+  type: ActionTypes.SET_SELECTED_NOTE_TO_EDIT,
+  payload: { note },
+});
