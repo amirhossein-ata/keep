@@ -1,9 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 //actions
-import { selectNoteToEdit, deleteNote } from "core/actions/note";
+import { selectNoteToEdit, deleteNote, reorderNotes } from "core/actions/note";
 //helpers
 import { getHashtags } from "core/modules/helpers";
+
+//drag and drop
+import { Droppable, DragDropContext } from "react-beautiful-dnd";
 
 //components
 import Note from "./Note";
@@ -41,6 +44,20 @@ const Notes = ({ notes, dispatch }) => {
     dispatch(deleteNote(id));
   };
 
+  const onDragEnd = (result) => {
+    const { destination, source } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.draggableId === source.draggableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+    dispatch(reorderNotes(source, destination));
+  };
+
   const {
     loadNotesStatus,
     list,
@@ -53,21 +70,28 @@ const Notes = ({ notes, dispatch }) => {
   return (
     <div>
       {loadNotesStatus === "loaded" && (
-        <React.Fragment>
+        <DragDropContext onDragEnd={onDragEnd}>
           {showEditModal && (
             <EditNote note={note} isOpen={showEditModal} dispatch={dispatch} />
           )}
-          {filterList(list, searchKeyword, selectedHashtags).map(
-            (note, index) => (
-              <Note
-                key={index}
-                note={note}
-                onNoteClick={handleNoteClick}
-                onDelete={handleDeleteNote}
-              />
-            )
-          )}
-        </React.Fragment>
+          <Droppable droppableId={"1"}>
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {filterList(list, searchKeyword, selectedHashtags).map(
+                  (note, index) => (
+                    <Note
+                      key={note.id}
+                      index={index}
+                      note={note}
+                      onNoteClick={handleNoteClick}
+                      onDelete={handleDeleteNote}
+                    />
+                  )
+                )}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       )}
     </div>
   );

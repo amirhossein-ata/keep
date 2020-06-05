@@ -1,21 +1,10 @@
 import { applyMiddleware, createStore, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
 import rootSaga from "core/sagas/index";
-import rootReducer from "core/reducers/index";
+import reducer from "core/reducers/index";
 
 const sagaMiddleware = createSagaMiddleware();
-
-const reducer = persistReducer(
-  {
-    key: "keep", // key is required
-    storage, // storage is now required
-    whitelist: ["auth", "location", "env"],
-  },
-  rootReducer
-);
 
 const middleware = [sagaMiddleware];
 
@@ -38,12 +27,7 @@ const configStore = (initialState = {}) => {
 
   sagaMiddleware.run(rootSaga);
 
-  return {
-    persistor: persistStore(store),
-    store,
-  };
+  return store;
 };
 
-const { store, persistor } = configStore();
-
-export { store, persistor };
+export default configStore();

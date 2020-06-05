@@ -6,7 +6,6 @@ import Form from "antd/lib/form";
 import Input from "antd/lib/input";
 
 const NoteForm = ({ title, setTitle, description, setDescription }) => {
-  console.log(title, description);
   return (
     <Form>
       <Form.Item>

@@ -24,10 +24,10 @@ const Home = ({ notes, dispatch }) => {
         justify="center"
         style={{ marginTop: "2em", padding: "2em" }}
       >
-        <Col span={4}>
+        <Col span={6}>
           <Filters dispatch={dispatch} notes={notes} />
         </Col>
-        <Col span={5} />
+        <Col span={3} />
 
         <Col span={10}>
           <AddNewNote dispatch={dispatch} />

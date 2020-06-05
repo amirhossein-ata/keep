@@ -34,3 +34,8 @@ export const selectNoteToEdit = (note) => ({
   type: ActionTypes.SET_SELECTED_NOTE_TO_EDIT,
   payload: { note },
 });
+
+export const reorderNotes = (source, destination) => ({
+  type: ActionTypes.REORDER_NOTES,
+  payload: { source, destination },
+});

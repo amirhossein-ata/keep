@@ -23,6 +23,13 @@ const initialState = {
   showEditModal: false,
 };
 
+function getReorderedList(list, source, destination) {
+  const note = list[source.index];
+  list.splice(source.index, 1);
+  list.splice(destination.index, 0, note);
+  return list;
+}
+
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case ActionTypes.GET_NOTES_REQUEST:
@@ -114,6 +121,16 @@ export default (state = initialState, { type, payload }) => {
     case ActionTypes.FILTER_BY_HASHTAGS:
       return immutable(state, {
         selectedHashtags: { $set: [...new Set([...payload.hashtags])] },
+      });
+    case ActionTypes.REORDER_NOTES:
+      return immutable(state, {
+        list: {
+          $set: getReorderedList(
+            [...state.list],
+            payload.source,
+            payload.destination
+          ),
+        },
       });
     default:
       return state;
