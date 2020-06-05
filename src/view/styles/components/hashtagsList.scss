@@ -1,0 +1,18 @@
+.hashtagsList {
+  .hashtagButton {
+    margin: 0 1em 1em 0;
+
+    &:hover {
+      border-color: #ec4e5e;
+      color: #ec4e5e;
+    }
+    &:active {
+      border-color: #ec4e5e;
+      color: #ec4e5e;
+    }
+    &:focus {
+      border-color: #ec4e5e;
+      color: #ec4e5e;
+    }
+  }
+}

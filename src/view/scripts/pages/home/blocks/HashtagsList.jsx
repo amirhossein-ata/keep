@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 
 //antd
 import List from "antd/lib/list";
-import Tag from "antd/lib/tag";
+import Row from "antd/lib/row";
+import Button from "antd/lib/button";
+import { CloseOutlined } from "@ant-design/icons";
 
 const HashtagsList = ({
   selectedHashtags,
@@ -11,12 +13,20 @@ const HashtagsList = ({
   onHashtagClick,
   onDeleteHashtag,
 }) => (
-  <div>
-    {selectedHashtags.map((hashtag, index) => (
-      <p closable onClick={() => onDeleteHashtag(hashtag)} key={index}>
-        {hashtag}
-      </p>
-    ))}
+  <div className="hashtagsList">
+    <Row>
+      {selectedHashtags.map((hashtag, index) => (
+        <Button
+          className="hashtagButton"
+          onClick={() => onDeleteHashtag(hashtag)}
+          key={index}
+        >
+          {hashtag}
+          <CloseOutlined />
+        </Button>
+      ))}
+    </Row>
+
     <List
       header="Hashtags List"
       itemLayout="horizontal"

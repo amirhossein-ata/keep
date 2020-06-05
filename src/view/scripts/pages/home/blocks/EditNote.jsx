@@ -22,18 +22,22 @@ const EditNote = ({ note, isOpen, dispatch }) => {
 
   return (
     <Modal
+      className="editModal"
       title=""
       footer={null}
       visible={isOpen}
       onCancel={handleEditNoteClose}
       closable={false}
     >
-      <NoteForm
-        title={title}
-        setTitle={setTitle}
-        description={description}
-        setDescription={setDescription}
-      />
+      <div className="noteForm">
+        <NoteForm
+          title={title}
+          setTitle={setTitle}
+          description={description}
+          setDescription={setDescription}
+          onClose={handleEditNoteClose}
+        />
+      </div>
     </Modal>
   );
 };

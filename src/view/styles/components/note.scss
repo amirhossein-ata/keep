@@ -1,8 +1,37 @@
 .note {
+  .ant-card {
+    border-radius: 15px;
+  }
+  &.ant-card-bordered {
+    border-radius: 15px;
+  }
+  .empty {
+    height: 47px;
+  }
   .ant-card-actions {
+    display: none;
+    background: transparent;
+    border-top: none;
     li {
       width: 20% !important;
       float: right;
     }
+  }
+  &:hover {
+    .empty {
+      display: none;
+    }
+    .ant-card-actions {
+      display: block;
+    }
+  }
+  .ant-card-grid {
+    box-shadow: none;
+  }
+  .note-title {
+    overflow-wrap: break-word;
+  }
+  .note-description {
+    overflow-wrap: break-word;
   }
 }

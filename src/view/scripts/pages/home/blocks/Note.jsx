@@ -33,12 +33,16 @@ const Note = ({ note, onNoteClick, onDelete, index }) => (
             hoverable={false}
             onClick={() => onNoteClick(note)}
           >
-            {note.title === "" && note.title === "" ? (
-              <h3>Empty note</h3>
+            {note.title === "" && note.description === "" ? (
+              <React.Fragment>
+                <h2>Empty note</h2>
+                <div className="empty" />
+              </React.Fragment>
             ) : (
               <React.Fragment>
-                <h3>{note.title}</h3>
-                <p>{note.description}</p>
+                <h3 className="note-title">{note.title}</h3>
+                <p className="note-description">{note.description}</p>
+                <div className="empty" />
               </React.Fragment>
             )}
           </Card.Grid>

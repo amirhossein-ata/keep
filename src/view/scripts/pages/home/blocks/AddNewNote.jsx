@@ -3,8 +3,7 @@ import React, { useState, useRef } from "react";
 import { useOutsideChecker, getHashtags } from "core/modules/helpers";
 //actions
 import { addNote } from "core/actions/note";
-//antd
-import { Button } from "antd";
+
 // compnonets
 import NoteForm from "./NoteForm";
 
@@ -27,6 +26,7 @@ const AddNewNote = ({ dispatch }) => {
 
   //close new note form
   const handleCloseNewNoteForm = () => {
+    console.log("0000000000000");
     setNewNoteMode("idle");
     onAddNote();
   };
@@ -36,20 +36,23 @@ const AddNewNote = ({ dispatch }) => {
   useOutsideChecker(newNoteRef, handleCloseNewNoteForm);
 
   return (
-    <React.Fragment>
+    <div className="noteForm">
       {newNoteMode === "idle" ? (
-        <Button onClick={onNewNoteClick}>take a note... </Button>
+        <div className="addNewNoteButton" onClick={onNewNoteClick}>
+          Take a note...
+        </div>
       ) : (
-        <div ref={newNoteRef}>
+        <div className="addNoteForm" ref={newNoteRef}>
           <NoteForm
             title={title}
             setTitle={setTitle}
             description={description}
             setDescription={setDescription}
+            onClose={handleCloseNewNoteForm}
           />
         </div>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 
