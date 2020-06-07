@@ -1,0 +1,190 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> view/scripts/pages/home/blocks/Note.jsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">KEEP</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Actions_Note.html">Actions/Note</a></li><li><a href="module-Reducers_Note.html">Reducers/Note</a></li><li><a href="module-Sagas_Note.html">Sagas/Note</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Note">Note</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>view/scripts/pages/home/blocks/Note.jsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import PropTypes from "prop-types";
+
+//antd
+import Card from "antd/lib/card";
+import { DeleteOutlined } from "@ant-design/icons";
+//drag and drop
+import { Draggable } from "react-beautiful-dnd";
+
+/**
+ * Note Card
+ * @param {object} note
+ * @param {func} onNoteClick
+ */
+const Note = ({ note, onNoteClick, onDelete, index }) => (
+  &lt;Draggable draggableId={`${note.id}`} index={index}>
+    {(provided) => (
+      &lt;div
+        ref={provided.innerRef}
+        {...provided.dragHandleProps}
+        {...provided.draggableProps}
+      >
+        &lt;Card
+          style={{ marginTop: "1em" }}
+          hoverable
+          actions={[
+            &lt;DeleteOutlined key="ellipsis" onClick={() => onDelete(note.id)} />,
+          ]}
+          className="note"
+        >
+          &lt;Card.Grid
+            style={{ width: "100%" }}
+            hoverable={false}
+            onClick={() => onNoteClick(note)}
+          >
+            {note.title === "" &amp;&amp; note.description === "" ? (
+              &lt;React.Fragment>
+                &lt;h2>Empty note&lt;/h2>
+                &lt;div className="empty" />
+              &lt;/React.Fragment>
+            ) : (
+              &lt;React.Fragment>
+                &lt;h3 className="note-title">{note.title}&lt;/h3>
+                &lt;p className="note-description">{note.description}&lt;/p>
+                &lt;div className="empty" />
+              &lt;/React.Fragment>
+            )}
+          &lt;/Card.Grid>
+        &lt;/Card>
+      &lt;/div>
+    )}
+  &lt;/Draggable>
+);
+
+Note.proptype = {
+  note: PropTypes.object,
+  onNoteClick: PropTypes.func,
+  onDelete: PropTypes.func,
+};
+export default Note;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

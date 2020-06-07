@@ -1,7 +1,7 @@
 /* eslint-disable brace-style */
 /**
- * @module Sagas/MediaCategory
- * @desc media categories saga
+ * @module Sagas/Note
+ * @desc notes saga
  */
 import { all, put, takeLatest } from "redux-saga/effects";
 import { v4 as uuid } from "uuid";
@@ -62,7 +62,11 @@ export function* getNotesRequest({ payload }) {
  * triggers in response to ADD_NOTE_REQUEST
  * and in case of success puts ADD_NOTE_SUCCESS
  * and in case of failure puts ADD_NOTE_FAILURE
+ * @param {string} title
+ * @param {string} description
+ * @param {array} hashtags
  */
+
 export function* addNote({ payload }) {
   try {
     setTimeout(() => {}, 1000);
@@ -90,6 +94,9 @@ export function* addNote({ payload }) {
  * triggers in response to EDIT_NOTE_REQUEST
  * and in case of success puts EDIT_NOTE_SUCCESS
  * and in case of failure puts EDIT_NOTE_FAILURE
+ * @param {string} title
+ * @param {string} description
+ * @param {array} hashtags
  */
 export function* editNote({ payload }) {
   try {
@@ -118,6 +125,7 @@ export function* editNote({ payload }) {
  * triggers in response to DELETE_NOTE_REQUEST
  * and in case of success puts DELETE_NOTE_SUCCESS
  * and in case of failure puts DELETE_NOTE_FAILURE
+ * @param {string} id
  */
 export function* deleteNote({ payload }) {
   try {
