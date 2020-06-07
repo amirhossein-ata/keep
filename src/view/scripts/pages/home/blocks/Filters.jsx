@@ -31,9 +31,9 @@ const Filters = ({ dispatch, notes }) => {
 
   return (
     <React.Fragment>
-      <div style={{ marginBottom: "2em" }}>
+      <div style={{ marginBottom: "2em" }} className="filters">
         <Input.Search
-          placeholder="input search text"
+          placeholder="Search"
           value={searchKeyword}
           onSearch={handleSearch}
           size="large"

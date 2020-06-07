@@ -19,21 +19,17 @@ const Home = ({ notes, dispatch }) => {
 
   return (
     <div>
-      <Row
-        gutter={24}
-        justify="center"
-        style={{ marginTop: "2em", padding: "2em" }}
-      >
-        <Col span={6}>
+      <Row gutter={24} justify="center" className="homepage">
+        <Col span={8}>
           <Filters dispatch={dispatch} notes={notes} />
         </Col>
-        <Col span={3} />
+        <Col span={2} />
 
         <Col span={10}>
           <AddNewNote dispatch={dispatch} />
           <Notes notes={notes} dispatch={dispatch} />
         </Col>
-        <Col span={5} />
+        <Col span={4} />
       </Row>
     </div>
   );

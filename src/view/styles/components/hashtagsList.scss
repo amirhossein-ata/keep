@@ -1,4 +1,13 @@
 .hashtagsList {
+  .ant-list-header {
+    font-weight: bold;
+    font-size: large;
+  }
+  .hashtag-item {
+    &:hover {
+      cursor: pointer;
+    }
+  }
   .hashtagButton {
     margin: 0 1em 1em 0;
 
@@ -14,5 +23,28 @@
       border-color: #ec4e5e;
       color: #ec4e5e;
     }
+  }
+}
+.filters {
+  .ant-input-search {
+    background: #f1f3f4;
+    border-radius: 15px;
+    padding: 1em;
+
+    &:hover {
+      border-color: #d9d9d9;
+    }
+
+    &:focus {
+      border-color: #d9d9d9;
+      box-shadow: 0 0 0 2px #f1f3f4;
+    }
+  }
+  .ant-input {
+    background: #f1f3f4;
+  }
+  .ant-input-affix-wrapper-focused {
+    border-color: #d9d9d9;
+    box-shadow: 0 0 0 2px #f1f3f4;
   }
 }

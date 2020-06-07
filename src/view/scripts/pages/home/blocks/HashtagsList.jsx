@@ -32,9 +32,9 @@ const HashtagsList = ({
       itemLayout="horizontal"
       dataSource={hashtags}
       renderItem={(item) => (
-        <List.Item>
+        <List.Item className="hashtag-item">
           <div onClick={() => onHashtagClick(item)}>
-            <h3>{item}</h3>
+            <h4>{item}</h4>
           </div>
         </List.Item>
       )}
